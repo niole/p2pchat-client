@@ -16,26 +16,30 @@ class ChatView extends StatelessWidget {
             children: [
               Column(
                   children: [
-                    CreateEditChat(),
+                    const CreateEditChat(),
                     Expanded(
-                      child: Container(
-                          width: 100,
-                          child: ListView.builder(
-                              itemCount: chats.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Container(
-                                  height: 50,
-                                  width: 100,
-                                  color: Colors.green,
-                                  child: Center(
-                                      child: Text('Entry ${chats[index].usernames}')
-                                  ),
-                                );
-                              }
-                          )
-                      )
-                  )
-                ]
+                        child: Container(
+                            margin: const EdgeInsets.only(bottom: 8.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blueAccent)
+                            ),
+                            width: 100,
+                            child: ListView.separated(
+                                itemCount: chats.length,
+                                separatorBuilder: (BuildContext context, int index) => const Divider(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    height: 50,
+                                    width: 100,
+                                    child: Center(
+                                        child: ListTile(title: Text(chats[index].usernames.join(",")))
+                                    ),
+                                  );
+                                }
+                            )
+                        )
+                    )
+                  ]
               )
           ]
         )
