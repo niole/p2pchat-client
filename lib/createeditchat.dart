@@ -61,9 +61,12 @@ class _CreateEditChatFormState extends State<CreateEditChatForm> {
                          final usernames = _formKey.currentState!.getRawValue("usernames");
                          final chatParticipants = usernames.split(",");
 
-                         Provider.of<Chats>(ctx, listen: false).chats.add(
+                         final oldChats = Provider.of<Chats>(ctx, listen: false).chats;
+                         oldChats.add(
                              Chat("id", chatParticipants, <Message>[])
                          );
+
+                         Provider.of<Chats>(ctx, listen: false).chats = oldChats;
 
                         Navigator.pop(ctx);
                        }

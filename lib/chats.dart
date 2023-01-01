@@ -9,7 +9,7 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    final chats = Provider.of<Chats>(ctx).chats;
+    final chats = Provider.of<Chats>(ctx, listen: true).chats;
     return Scaffold(
         body: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
