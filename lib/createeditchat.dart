@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:p2pchat/models/chat.dart';
 import './models/chats.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
 class CreateEditChat extends StatelessWidget {
   const CreateEditChat({super.key});
@@ -63,7 +64,7 @@ class _CreateEditChatFormState extends State<CreateEditChatForm> {
 
                          final oldChats = Provider.of<Chats>(ctx, listen: false).chats;
                          oldChats.add(
-                             Chat("id", chatParticipants, <Message>[])
+                             Chat(getRandomString(15), chatParticipants, <Message>[])
                          );
 
                          Provider.of<Chats>(ctx, listen: false).chats = oldChats;
@@ -79,4 +80,9 @@ class _CreateEditChatFormState extends State<CreateEditChatForm> {
      )
    );
  }
+ final _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+ Random _rnd = Random();
+
+ String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 }
