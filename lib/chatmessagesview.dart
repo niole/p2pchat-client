@@ -52,23 +52,29 @@ class _ChatMessagesView extends State<ChatMessagesView>{
             ElevatedButton(
               style:  ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20)),
               onPressed: () {
-                print(myController.text);
                 final chatsProvider = Provider.of<Chats>(ctx, listen: false);
                 final oldChats = chatsProvider.chats;
                 final indexOfChat = oldChats.indexOf(selectedChat);
                 if (indexOfChat > -1) {
+                  // Update in memory chat in order to show the message to the user
+                  // then send the message to the other users in the chat
                   final user = Provider.of<User>(ctx, listen: false).user;
-                  selectedChat.addMessages(
-                      <Message>[
-                        Message(getRandomString(15),
-                            user!,
-                            selectedChat.id,
-                            myController.text
-                        )
-                      ]);
-                  oldChats[indexOfChat] = selectedChat;
-                  chatsProvider.chats = oldChats;
-                  myController.text = "";
+                  if (user != null) {
+                    selectedChat.addMessages(
+                        <Message>[
+                          Message(
+                              getRandomString(15),
+                              user,
+                              selectedChat.id,
+                              myController.text
+                          )
+                        ]);
+                    oldChats[indexOfChat] = selectedChat;
+                    chatsProvider.chats = oldChats;
+                    myController.text = "";
+                  } else {
+                    throw Exception("A user was expected to be logged in but user was null");
+                  }
                 } else {
                   print("Chat ${selectedChat.id} was not findable in the chats state");
                 }
