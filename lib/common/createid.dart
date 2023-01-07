@@ -2,9 +2,9 @@ library createid;
 
 import 'dart:math';
 
-var CreateId = new CreateIdImpl();
+var CreateId = new _CreateIdImpl();
 
-class CreateIdImpl {
+class _CreateIdImpl {
   final _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
   String get id => getRandomString(15);
