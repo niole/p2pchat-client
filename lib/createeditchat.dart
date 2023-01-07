@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:p2pchat/models/chat.dart';
-import './models/chats.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
+import './models/chats.dart';
+import './common/createid.dart';
 
 class CreateEditChat extends StatelessWidget {
   const CreateEditChat({super.key});
@@ -64,7 +64,7 @@ class _CreateEditChatFormState extends State<CreateEditChatForm> {
 
                          final oldChats = Provider.of<Chats>(ctx, listen: false).chats;
                          oldChats.add(
-                             Chat(getRandomString(15), chatParticipants, <Message>[])
+                             Chat(CreateId.id, chatParticipants, <Message>[])
                          );
 
                          Provider.of<Chats>(ctx, listen: false).chats = oldChats;
@@ -80,9 +80,4 @@ class _CreateEditChatFormState extends State<CreateEditChatForm> {
      )
    );
  }
- final _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
- Random _rnd = Random();
-
- String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 }

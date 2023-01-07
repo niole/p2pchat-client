@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'dart:math';
+import './common/createid.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import './models/chats.dart';
@@ -63,7 +63,7 @@ class _ChatMessagesView extends State<ChatMessagesView>{
                     selectedChat.addMessages(
                         <Message>[
                           Message(
-                              getRandomString(15),
+                              CreateId.id,
                               user,
                               selectedChat.id,
                               myController.text
@@ -84,11 +84,4 @@ class _ChatMessagesView extends State<ChatMessagesView>{
       ],
     );
   }
-
-  final _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-  Random _rnd = Random();
-
-  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
 }
